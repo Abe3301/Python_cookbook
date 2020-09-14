@@ -71,3 +71,119 @@ def sum(items):
     return ans
 sum(items)
 
+#collection deque 
+from collections import deque
+def search(lines, pattern, history=5):
+    previous_lines = deque(maxlen=history)
+    for line in lines:
+        if pattern in lines:
+            yield line, previous_lines
+        previous_lines.append(line)
+
+with open('test.txt') as f:
+    for line, prevlines in search(f,'test',5):
+        for pline in prevlines:
+            print(pline, end='')
+            print(line, end='')
+            print('-'*20)
+q = deque(maxlen = 3)
+q.append(1)
+q.append(2)
+q.append(3)
+print(q)
+q.append(4)
+print(q)
+q = deque()
+q.appendleft(5)
+q.append(1)
+q.append(2)
+q.append(3)
+print(q)
+q.popleft()
+print(q)
+#heapq smallest and largest
+import heapq
+nums = [1,3,54,56,324,-2930,-3.0983,32,9834,9,-1,34,564,0.3,-0.4]
+print(heapq.nlargest(4, nums))
+print(heapq.nsmallest(4,nums))
+
+portfolio = [
+        {'name':'IBM','shares':100,'price':91.11},
+        {'name':'AAPL','shares':72,'price':981.14},
+        {'name':'FB','shares':193,'price':41.71},
+        {'name':'HPQ','shares':23,'price':51.31},
+        {'name':'YHOO','shares':59,'price':9.5},
+        {'name':'ACME','shares':99,'price':243.8}
+        ]
+cheap = heapq.nsmallest(3,portfolio,key=lambda s: s['price'])
+expensive = heapq.nlargest(3,portfolio,key=lambda s: s['price'])
+print(cheap)
+print(expensive)
+
+heap=list(nums)
+heapq.heapify(heap)
+print(heap)
+heapq.heappop(heap)
+heapq.heappop(heap)
+print(heap)
+
+#QUEUE
+class PriorityQueue:
+    def __init__(self):
+        self._queue = []
+        self._index = 0
+    def push(self, item, priority):
+        heapq.heappush(self._queue, (-priority, self._index, item))
+        self._index += 1
+    def pop(self):
+        return heapq.heappop(self._queue)[-1]
+class Item:
+    def __init__(self,name):
+        self.name = name
+    def __repr__(self):
+        return 'Item({!r})'.format(self.name)
+
+q = PriorityQueue()
+q.push(Item('foo'),1)
+q.push(Item('bar'),5)
+q.push(Item('spam'),4)
+q.push(Item('grok'),1)
+q.pop()
+#this pops bar first with highest priority
+a = (1,0,Item('foo'))
+b = (5,1,Item('bar'))
+c = (1,2,Item('grok'))
+print(a)
+print(b)
+print(c)
+x = a < b
+y = b > c
+z = a < c
+print (x,y,z)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
